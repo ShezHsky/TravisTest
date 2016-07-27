@@ -22,5 +22,5 @@ env:
 
 branches:
   except:
-    - /^v\d/
+    - /^\d/
 
