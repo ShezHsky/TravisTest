@@ -1,13 +1,15 @@
 language: objective-c
-install: true
 
 osx_image: xcode8
 xcode_project: TravisTest.xcodeproj
 xcode_scheme: TravisTest
 xcode_sdk: macosx
 
+install:
+  - gem install xcpretty
+
 script: 
-  - xcodebuild -project TravisTest.xcodeproj -scheme TravisTest clean test
+  - xcodebuild -project TravisTest.xcodeproj -scheme TravisTest clean test | xcpretty
 
 after_success:
   - git config --global user.email "builds@travis-ci.com"
