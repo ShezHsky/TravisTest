@@ -9,9 +9,6 @@ xcode_sdk: macosx
 script: 
   - xcodebuild -project TravisTest.xcodeproj -scheme TravisTest clean test
 
-deploy:
-  skip_cleanup: true
-
 after_success:
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
@@ -19,6 +16,14 @@ after_success:
   - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
   - git push -q https://$GITHUB_TOKEN@github.com/ShezHsky/TravisTest --tags
 
+deploy:
+  skip_cleanup: true
+
 env:
   global:
     secure: RGsU5qaLwuQPubHe3boUTTQEswCqtyoTEylO1vJ9Zd3OiktL6pOE6fabFfRKvDzFykl1WlMn40rWBiqMCwPWF/XCmmNV0YBwSCE326FYfQBxEJAuzavXrwtv04ftoCk9/L0F7dWtYv4tkg2FcsHR5KaVqmx2rMQ5FKITVzTzn6WW3QiL/c3ijqmwLO8C7NIgHtO6ZXI+hqmdDbHD7iGqqmpJO824oWE25a+fkmbotAEmHAFnQTuWIgSHfz5UppsKzMbm8sfJhZF8qE+yDIByXTxGATnHcbKuJ36IkscGLoVfwP9f1ST96ADwDlFjQx5//XMJckhYmLjI88/TLekp8ujzbrc/wpaIvvdMOXnEcdqqf0Rne3D85ZYEW2JdP55AVjQjJ5ItxHrUy9UoauIpU3m1fvAMKy0ZUoFI7IqtaQYQ90w7gBJvqAYcJ0o4yI/oEkAVMiUYPIV4t78zfRKY8AMkW4EXsf1y5/x3m9/Y85vVIHBGgpnu9jWqqPMk5+R1d/j56w3bw2AJjsAdlvR4ITDoQNxTJEv9SZgo8HFApecP1yCAOXxU1ie7wADT3cCutcU/BKUPCaPDEwcLWWhdksmz+Lf3YMO7kTy7JEVoPz64eaY0skiI5VVcEZxPQPf0eiYuYK/Th7qSOUR8+K+hUgPZsBiIIgAovfgIOUR62/g=
+
+branches:
+  except:
+    - \d+(\.\d+)+
+
